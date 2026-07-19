@@ -1,8 +1,10 @@
 # MiniSTL
 
-MiniSTL is a **learning-focused C++ project** that reimplements core STL-like containers from scratch to understand their **internal data structures, memory management, and abstraction principles**.
+MiniSTL is a **learning-focused C & C++ project** that reimplements core STL-like containers from scratch to understand their **internal data structures, memory management, and abstraction principles**.
 
 Instead of using the C++ Standard Library as a black box, this project rebuilds containers step by step to study how they manage memory, maintain invariants, and expose traversal through iterators.
+
+Also, the implementation in C helps in understanding the scratch implementation of the data structure
 
 ---
 
@@ -26,6 +28,9 @@ include/
 ├── iterator.h
 ├── list.h
 └── vector.h
+
+src/
+├── linkedlist.c
 
 
 Each header focuses on a specific STL concept and is implemented incrementally.
@@ -133,7 +138,7 @@ The focus remains on **understanding fundamentals**.
 ## 📌 Project Status
 
 🚧 Under active development.  
-Containers are implemented first, followed by iterators and generic algorithms.
+C implementation first, then with the help of Modern C++, containers are implemented , followed by iterators and generic algorithms.
 
 ---
 
