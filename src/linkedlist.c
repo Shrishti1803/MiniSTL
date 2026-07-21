@@ -63,6 +63,8 @@ void search(nodeptr list){
 
 nodeptr insert(nodeptr list){
 
+    nodeptr newnode;
+    newnode = (nodeptr) malloc(sizeof(struct Node));
     /*
     1. In case of empty list
     check if list == Null
@@ -75,8 +77,6 @@ nodeptr insert(nodeptr list){
    //CODE for case 1 :
 
    if(list == NULL){
-        nodeptr newnode;
-        newnode = (nodeptr) malloc(sizeof(struct Node));
         printf("Insert the element : \n");
         scanf("%d", &newnode->data);
         newnode->next = list;
@@ -95,11 +95,9 @@ nodeptr insert(nodeptr list){
     */
     //CODE for case 2 :
     int pos;
-    printf("Enter the position you want : ");
+    printf("Enter the position you where you want to insert : ");
     scanf("%d", &pos);
     if(pos == 1){
-        nodeptr newnode;
-        newnode = (nodeptr) malloc(sizeof(struct Node));
         printf("Insert the element : \n");
         scanf("%d", &newnode->data);
         newnode->next = list;
@@ -126,8 +124,6 @@ nodeptr insert(nodeptr list){
         nodeptr curr;
         int i ;
         for(i = 1, curr = list ; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
-        nodeptr newnode;
-        newnode = (nodeptr) malloc(sizeof(struct Node));
         printf("Insert the element : \n");
         scanf("%d", &newnode->data);
         newnode->next = curr->next;
@@ -135,14 +131,73 @@ nodeptr insert(nodeptr list){
         return list;
 }
 
+
+//Delete function has similar cases
+nodeptr del(nodeptr list){
+    nodeptr curr = list;
+    nodeptr curr1;
+    int i, pos;
+    printf("Enter the position you want to delete : ");
+    scanf("%d",&pos);
+    if(list == NULL){
+        printf("Nothing to delete!\n");
+        return list;
+    }
+
+    if(pos == 1){
+        list = curr->next;
+        free(curr);
+        return list;
+    }
+    for(i = 1 , curr = list; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
+    if(curr->next == NULL){
+        printf("The position is out of range");
+        return list;
+    }
+    curr1 = curr->next;
+    curr->next = curr1->next;
+    free(curr1);
+    return list;
+}
+
 int main(){
     nodeptr list;
-    list = create(list);
-    display(list);
-    search(list);
-    list = insert(list);
-    printf("\n\n");
-    display(list);
+    int opt;
+   
+    do{
+        printf("\n 0. Exit \n 1.Create \n 2.Display \n 3.Search \n 4.Insert \n 5.Delete\n\n");
+
+        printf("\n\nChoose the option : ");
+        scanf("%d", &opt);
+        switch(opt){
+            case 0 :printf("\nGoodbye!\n");
+                    exit(0);
+
+            case 1 :list = create(list);
+                    break;
+
+            case 2 :display(list);
+                    break;
+            
+            case 3 :search(list);
+                    break;
+            
+            case 4 :list = insert(list);
+                    printf("The list after adding the element is : \n");
+                    display(list);
+                    break;
+
+            case 5 :list = del(list);
+                    printf("The list after deleting the element is : \n");
+                    display(list);
+                    break;
+                
+            default : printf("Invalid option !\n\n");
+        }
+
+    }
+    while(opt != 0);
+
     
     return 0;
 }
