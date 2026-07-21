@@ -105,10 +105,6 @@ nodeptr insert(nodeptr list){
         return list;
 }
 
-
-
-
-
 int main(){
     nodeptr list;
     int opt;
@@ -136,10 +132,10 @@ int main(){
                     display(list);
                     break;
 
-            case 5 :list = del(list);
+           /* case 5 :list = del(list);
                     printf("The list after deleting the element is : \n");
                     display(list);
-                    break;
+                    break;*/
                 
             default : printf("Invalid option !\n\n");
         }
