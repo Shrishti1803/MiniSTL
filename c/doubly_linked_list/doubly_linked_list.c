@@ -19,9 +19,9 @@ nodeptr create(nodeptr list){
         printf("Element %d : ", i);
         scanf("%d", &newnode->data);
         newnode->next = NULL;
+        newnode->prev = NULL;
         if(list == NULL){
             list = curr = newnode;
-            newnode->prev = NULL;
         }
         else{
             curr->next = newnode;
@@ -103,6 +103,40 @@ nodeptr insert(nodeptr list){
         newnode->prev = curr;
         curr->next = newnode;
         return list;
+}
+
+//Delete function has similar cases
+nodeptr del(nodeptr list){
+    nodeptr curr = list;
+    nodeptr curr1;
+    nodeptr curr2;
+
+    int i, pos;
+    printf("Enter the position you want to delete : ");
+    scanf("%d",&pos);
+    if(list == NULL){
+        printf("Nothing to delete!\n");
+        return list;
+    }
+
+    if(pos == 1){
+        curr1 = curr->next;
+        list = curr->next;
+        curr1->prev = NULL;
+        free(curr);
+        return list;
+    }
+    for(i = 1 , curr = list; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
+    if(curr->next == NULL){
+        printf("The position is out of range");
+        return list;
+    }
+    curr1 = curr->next; //assign the value of curr1 
+    curr2 = curr1->next;
+    curr->next = curr1->next;
+    curr2->prev = curr;
+    free(curr1);
+    return list;
 }
 
 int main(){

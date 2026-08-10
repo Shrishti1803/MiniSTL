@@ -54,28 +54,10 @@ void search(nodeptr list){
     
 }
 
-/*insertion works in 4 ways :
-1. insertion in empty list 
-2. insertion on first element 
-3. insertion at mid in the existing list 
-4. insertion at last
-*/
-
 nodeptr insert(nodeptr list){
 
     nodeptr newnode;
     newnode = (nodeptr) malloc(sizeof(struct Node));
-    /*
-    1. In case of empty list
-    check if list == Null
-    true ?
-    then newnode->data user input 
-    then newnode->next = NULL
-    list = newnode
-    return list
-    */
-   //CODE for case 1 :
-
    if(list == NULL){
         printf("Insert the element : \n");
         scanf("%d", &newnode->data);
@@ -83,17 +65,7 @@ nodeptr insert(nodeptr list){
         list = newnode;
         return list;
    }
-    
-    /*
-    2. In the beginning :
-    when user input of position = 1
-    make new node
-    assign the memory using malloc
-    take user input in newnode->data and set newnode->next = Null
-    then set newnode->next = list 
-    then set list = newnode 
-    */
-    //CODE for case 2 :
+
     int pos;
     printf("Enter the position you where you want to insert : ");
     scanf("%d", &pos);
@@ -104,22 +76,6 @@ nodeptr insert(nodeptr list){
         list = newnode;
         return list;
     }
-
-
-    /*
-    3. In middle of the list at a particular position / or at end / or position input from user is out of range from the list 
-    traverse the list through for loop
-    we just traverse through the list, and till time (curr->next != Null && i < position -1) this condition in the for loop remains true, the curr pointer moves forward.
-        while this traversal is happening, we do not execute anything. We just traverse and make the curr reach the position where we want to insert
-
-    after you reach the position you wish to insert the new element, do the same steps as create 
-    newnode->data user input 
-    newnode->next = curr->next (works in both mid element as well as end element insertion)
-    curr->next = newnode 
-
-    P.S, this code considers -ve numbers + 0 in the third case (because that is not in the range)
-    */
-   //CODE for case 3 :
 
         nodeptr curr;
         int i ;
