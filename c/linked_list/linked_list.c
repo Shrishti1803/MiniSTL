@@ -3,7 +3,6 @@
 #include "linked_list.h"
 
 nodeptr create(nodeptr list){
-    list = NULL;
     nodeptr curr, newnode;
     int n;
     printf("How many list elements? : ");
@@ -18,7 +17,6 @@ nodeptr create(nodeptr list){
         }
         else{
             curr->next = newnode;
-            newnode->next = NULL;
             curr = newnode;
         }
     }
@@ -26,9 +24,8 @@ nodeptr create(nodeptr list){
 }
 
 void display(nodeptr list){
-    nodeptr curr = list;
-    int i;
-    for(i =1 ; curr != NULL; i++, curr = curr->next){
+    nodeptr curr;
+    for(curr = list ; curr != NULL; curr = curr->next){
         printf("%d\n", curr->data);
     }
 }
@@ -57,6 +54,11 @@ nodeptr insert(nodeptr list){
     //take the position :
     printf("Enter the position you where you want to insert : ");
     scanf("%d", &pos);
+
+    if(pos <= 0){
+        printf("Invalid position !\n");
+        return list;
+    }
 
     //memory alloc
     newnode = (nodeptr) malloc(sizeof(struct Node));
@@ -92,11 +94,16 @@ nodeptr insert(nodeptr list){
 
 //Delete function has similar cases
 nodeptr del(nodeptr list){
-    nodeptr curr = list;
-    nodeptr curr1;
+    nodeptr curr = list, curr1;
     int i, pos;
+
     printf("Enter the position you want to delete : ");
     scanf("%d",&pos);
+
+    if(pos <= 0){
+        printf("Invalid position !\n");
+        return list;
+    }
     if(list == NULL){
         printf("Nothing to delete!\n");
         return list;
