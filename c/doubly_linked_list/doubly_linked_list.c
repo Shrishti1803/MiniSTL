@@ -1,15 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Node{
-    int data;
-    struct Node * next;
-    struct Node* prev;
-};
-typedef struct Node* nodeptr;
+#include "doubly_linked_list.h"
 
 nodeptr create(nodeptr list){
-    list = NULL;
     nodeptr curr, newnode;
     int n;
     printf("How many list elements? : ");
@@ -25,7 +18,6 @@ nodeptr create(nodeptr list){
         }
         else{
             curr->next = newnode;
-            newnode->next = NULL;
             newnode->prev = curr;
             curr = newnode;
         }
@@ -66,52 +58,46 @@ void search(nodeptr list){
 
 nodeptr insert(nodeptr list){
 
-    nodeptr newnode;
-    newnode = (nodeptr) malloc(sizeof(struct Node));
+    nodeptr newnode, curr = list;
+    int pos,i;
 
-   //CODE for case 1 :
+    printf("Enter the position you where you want to insert : ");
+    scanf("%d", &pos);
+
+    newnode = (nodeptr) malloc(sizeof(struct Node));
+    printf("Insert the element : \n");
+    scanf("%d", &newnode->data);
+
+    newnode->next = newnode->prev = NULL;
+
 
    if(list == NULL){
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
-        newnode->next = list;
-        newnode->prev = NULL;
         list = newnode;
         return list;
    }
 
-    //CODE for case 2 :
-    int pos;
-    printf("Enter the position you where you want to insert : ");
-    scanf("%d", &pos);
     if(pos == 1){
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
         newnode->next = list;
-        newnode->prev = NULL;
+        curr->prev = newnode;
         list = newnode;
         return list;
     }
 
-   //CODE for case 3 :
-        nodeptr curr;
-        int i ;
-        for(i = 1, curr = list ; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
-        newnode->next = curr->next;
-        newnode->prev = curr;
-        curr->next = newnode;
-        return list;
+    for(i = 1, curr = list ; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
+
+    newnode->next = curr->next;
+    newnode->prev = curr;
+    curr->next->prev = newnode;
+    curr->next = newnode;
+    return list;
 }
 
 //Delete function has similar cases
 nodeptr del(nodeptr list){
     nodeptr curr = list;
     nodeptr curr1;
-    nodeptr curr2;
-
     int i, pos;
+
     printf("Enter the position you want to delete : ");
     scanf("%d",&pos);
     if(list == NULL){
@@ -120,63 +106,21 @@ nodeptr del(nodeptr list){
     }
 
     if(pos == 1){
-        curr1 = curr->next;
         list = curr->next;
-        curr1->prev = NULL;
+        curr->next->prev = curr->prev;//HERE we are showing the links rather that hardcoding NULL // we can also assign curr->next->prev = NULL
         free(curr);
         return list;
     }
+
     for(i = 1 , curr = list; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
+
     if(curr->next == NULL){
         printf("The position is out of range");
         return list;
     }
-    curr1 = curr->next; //assign the value of curr1 
-    curr2 = curr1->next;
+    curr1 = curr->next; //assign the value of curr1 because in the end this curr1 is the elemnet that needs to be deleted. 
     curr->next = curr1->next;
-    curr2->prev = curr;
+    curr1->next->prev = curr;
     free(curr1);
     return list;
-}
-
-int main(){
-    nodeptr list;
-    int opt;
-   
-    do{
-        printf("\n 0. Exit \n 1.Create \n 2.Display \n 3.Search \n 4.Insert \n 5.Delete\n\n");
-
-        printf("\n\nChoose the option : ");
-        scanf("%d", &opt);
-        switch(opt){
-            case 0 :printf("\nGoodbye!\n");
-                    exit(0);
-
-            case 1 :list = create(list);
-                    break;
-
-            case 2 :display(list);
-                    break;
-            
-            case 3 :search(list);
-                    break;
-            
-            case 4 :list = insert(list);
-                    printf("The list after adding the element is : \n");
-                    display(list);
-                    break;
-
-           /* case 5 :list = del(list);
-                    printf("The list after deleting the element is : \n");
-                    display(list);
-                    break;*/
-                
-            default : printf("Invalid option !\n\n");
-        }
-
-    }
-    while(opt != 0);
-
-    
-    return 0;
 }
