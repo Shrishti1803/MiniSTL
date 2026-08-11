@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Node{
-    int data;
-    struct Node * next;
-};
-typedef struct Node* nodeptr;
+#include "linked_list.h"
 
 nodeptr create(nodeptr list){
     list = NULL;
@@ -56,35 +51,42 @@ void search(nodeptr list){
 
 nodeptr insert(nodeptr list){
 
-    nodeptr newnode;
+    nodeptr newnode, curr;
+    int pos, i;
+
+    //take the position :
+    printf("Enter the position you where you want to insert : ");
+    scanf("%d", &pos);
+
+    //memory alloc
     newnode = (nodeptr) malloc(sizeof(struct Node));
+
+    //data input
+    printf("Insert the element : \n");
+    scanf("%d", &newnode->data);
+
+    //next of newnode assigned to null
+    newnode->next = NULL;
+
+    //empty list
    if(list == NULL){
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
-        newnode->next = list;
         list = newnode;
         return list;
    }
 
-    int pos;
-    printf("Enter the position you where you want to insert : ");
-    scanf("%d", &pos);
+   //first element
     if(pos == 1){
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
         newnode->next = list;
         list = newnode;
         return list;
     }
 
-        nodeptr curr;
-        int i ;
-        for(i = 1, curr = list ; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
-        printf("Insert the element : \n");
-        scanf("%d", &newnode->data);
-        newnode->next = curr->next;
-        curr->next = newnode;
-        return list;
+    //reach till the desired pos using this for loop
+    for(i = 1, curr = list ; i != (pos-1) && curr->next != NULL ; i++, curr = curr->next);
+
+    newnode->next = curr->next;
+    curr->next = newnode;
+    return list;
 }
 
 
@@ -114,46 +116,4 @@ nodeptr del(nodeptr list){
     curr->next = curr1->next;
     free(curr1);
     return list;
-}
-
-int main(){
-    nodeptr list;
-    int opt;
-   
-    do{
-        printf("\n 0. Exit \n 1.Create \n 2.Display \n 3.Search \n 4.Insert \n 5.Delete\n\n");
-
-        printf("\n\nChoose the option : ");
-        scanf("%d", &opt);
-        switch(opt){
-            case 0 :printf("\nGoodbye!\n");
-                    exit(0);
-
-            case 1 :list = create(list);
-                    break;
-
-            case 2 :display(list);
-                    break;
-            
-            case 3 :search(list);
-                    break;
-            
-            case 4 :list = insert(list);
-                    printf("The list after adding the element is : \n");
-                    display(list);
-                    break;
-
-            case 5 :list = del(list);
-                    printf("The list after deleting the element is : \n");
-                    display(list);
-                    break;
-                
-            default : printf("Invalid option !\n\n");
-        }
-
-    }
-    while(opt != 0);
-
-    
-    return 0;
 }
