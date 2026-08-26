@@ -1,11 +1,16 @@
 # Build artifacts
+
 *.o
 *.out
 *.exe
 
-# Compiled executables
+# Local executables
+
 c/linked_list/linked_list
 c/doubly_linked_list/doubly_linked_list
+c/singly_circular_linked_list/singly_circular_linked_list
+c/doubly_circular_linked_list/doubly_circular_linked_list
 
 # IDE/editor files
+
 .vscode/
