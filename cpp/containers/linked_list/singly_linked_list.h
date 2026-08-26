@@ -3,17 +3,32 @@
 #define MINI_LIST_H
 namespace mini{
 
-
+// Template makes the list generic.
+// T is a placeholder for the data type that the list will store.
+// The actual type is specified when creating the list object.
     template <typename T>
     class list{
         private:
             struct Node{
                 T data;
                 Node* next;
+                /*
+                In C, we write "struct Node*" because "Node" alone is not
+                the type name.
+                In C++, once the struct is declared, "Node" itself can be
+                used as the type name, so we can simply write "Node*".
+                */
             };
-            Node* head;
+            Node* head; //equivalent to "list" in the C SLL implementation
             Node* tail;
             size_t sz; //it is a type for sizes/counts...It's unsigned 
+            /*
+            Node, head, tail and sz are kept private because they are
+            the internal working parts of the list.
+            The user should not directly change them, otherwise the
+            list can become invalid or inconsistent.
+            The public functions are used to safely work with the list.
+            */
 
         public:
             list() : head(nullptr), tail(nullptr), sz(0){
@@ -74,3 +89,22 @@ namespace mini{
 
 }
 #endif
+
+/*
+push_front()
+push_back()
+
+pop_front()
+pop_back()
+
+front()
+back()
+
+insert()
+erase()
+
+size()
+empty()
+
+display()       
+*/
