@@ -6,10 +6,10 @@
 
 # Local executables
 
-c/linked_list/linked_list
-c/doubly_linked_list/doubly_linked_list
-c/singly_circular_linked_list/singly_circular_linked_list
-c/doubly_circular_linked_list/doubly_circular_linked_list
+c/linked_lists/singly/linked_list
+c/linked_lists/doubly/doubly_linked_list
+c/linked_lists/singly_circular/singly_circular_linked_list
+c/linked_lists/doubly_circular/doubly_circular_linked_list
 
 # IDE/editor files
 
