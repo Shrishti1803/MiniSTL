@@ -72,8 +72,43 @@ namespace mini{
                 tail = newNode;
                 sz++;
             }
+            
+            void pop_front(){
+                if(head == nullptr) return;
+                Node* curr = head;
+                head = curr->next;
+                if(sz == 1) tail = nullptr;
+                delete(curr);
+                sz--;
+                return;
+            }
 
-
+            /*
+            * pop_back() is O(n) for a singly linked list.
+            *
+            * Even though we have a tail pointer, a singly linked list
+            * cannot move backwards from the tail because each Node only
+            * stores a pointer to the next Node.
+            *
+            * Therefore, we must traverse from head to find the node
+            * just before the tail. This traversal takes O(n) time.
+            */
+            void pop_back(){
+                if(tail == nullptr) return;
+                Node* currdel = tail;
+                if(sz == 1){
+                    tail = head = nullptr;
+                    sz--;
+                    delete(currdel);
+                    return;
+                }
+                Node* curr;
+                for(curr = head; curr->next!=tail; curr = curr->next);
+                curr->next = currdel->next;
+                tail = curr;
+                sz--;
+                delete(currdel);
+            }
 
             size_t size() const{
                 return sz;
@@ -82,6 +117,28 @@ namespace mini{
 
             bool empty() const{
                 return sz == 0;
+            }
+
+
+
+            T& front(){
+                return head->data;
+            }
+            const T& front() const{
+                return head->data;
+            }
+
+
+            T& back(){
+                return tail->data;
+            }
+            const T& back() const{
+                return tail->data;
+            }
+
+
+            void insert(const T& value , size_t pos){
+
             }
 
 
