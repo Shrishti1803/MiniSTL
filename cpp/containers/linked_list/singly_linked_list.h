@@ -36,7 +36,7 @@ namespace mini{
             }
 
             ~list(){
-                //the deconstructor 
+                //the destructor 
                 Node* temp = head;
                 while(temp != nullptr){
                     Node* nextNode = temp->next;
@@ -119,8 +119,6 @@ namespace mini{
                 return sz == 0;
             }
 
-
-
             T& front(){
                 return head->data;
             }
@@ -138,30 +136,54 @@ namespace mini{
 
 
             void insert(const T& value , size_t pos){
-
+                if(pos == 0) return;
+                Node* curr;
+                Node* newnode = new Node(value);
+                newnode->next = nullptr;
+                if(head == nullptr){
+                    head = tail = newnode;
+                    sz++;
+                    return;
+                }
+                if(pos == 1){
+                    newnode->next = head;
+                    head = newnode;
+                    sz++;
+                    return;
+                }
+                for(int i = 1, curr = head; i!= (pos-1) && curr->next != nullptr; i++, curr = curr->next);
+                newnode->next = curr->next;
+                curr->next = newnode;
+                if(pos >= sz+1){
+                    tail = newnode;
+                }
+                sz++;
+                return;
             }
 
+            void erase(size_t pos){ //Same as del from C side implementation
+               Node* curr = head;
+               Node* curr1;
+               if(pos == 0) return;
+               if(head == nullptr) return;
+               if(pos == 1){
+                    head = curr->next;
+                    if(sz == 1) tail = nullptr;
+                    delete(curr);
+                    sz--;
+                    return;
+               }
+                for(int i = 1, curr = head; i!= (pos-1) && curr->next != nullptr; i++, curr = curr->next);
+                if(curr->next == nullptr) return;
+                curr1 = curr->next;
+                if(pos == sz) tail = curr;
+                curr->next = curr1->next;
+                delete(curr1);
+                sz--;
+                return;
+            }
 
     };
 
 }
 #endif
-
-/*
-push_front()
-push_back()
-
-pop_front()
-pop_back()
-
-front()
-back()
-
-insert()
-erase()
-
-size()
-empty()
-
-display()       
-*/
