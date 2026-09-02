@@ -119,6 +119,7 @@ namespace mini{
             void insert(const T& value , size_t pos){
                 if(pos == 0) return;
                 Node* curr;
+                int i;
                 Node* newnode = new Node(value);
                 newnode->next = newnode->prev = nullptr;
                 if(head == nullptr){
@@ -134,7 +135,7 @@ namespace mini{
                     return;
                 }
                 if(pos <= (sz/2)){
-                    for(int i = 1, curr = head; i!= (pos-1) ; i++, curr = curr->next);
+                    for(i = 1, curr = head; i!= (pos-1) ; i++, curr = curr->next);
                     newnode->next = curr->next;
                     newnode->prev =  curr;
                     curr->next->prev = newnode;
@@ -143,7 +144,7 @@ namespace mini{
                     return;
                 }
                 else{
-                    for(int i = sz, curr = tail; i > (sz/2) && i != (pos+1); --i, curr=curr->prev);
+                    for(i = sz, curr = tail; i > (sz/2) && i != (pos+1); --i, curr=curr->prev);
                     newnode->next = curr;
                     newnode->prev = curr->prev;
                     curr->prev->next = newnode;
@@ -158,6 +159,7 @@ namespace mini{
                if(head == nullptr) return;
                if(pos > sz) return;
                Node* curr = head;
+               int i;
                if(pos == 1){
                     if(sz == 1){
                         head = tail = nullptr;
@@ -181,7 +183,7 @@ namespace mini{
                }
                 Node* curr1;
                 if(pos <= (sz/2)){
-                    for(int i = 1, curr = head; i!= (pos-1) ; i++, curr = curr->next);
+                    for(i = 1, curr = head; i!= (pos-1) ; i++, curr = curr->next);
                     curr1 = curr->next;
                     curr->next = curr1->next;
                     curr1->next->prev = curr;
@@ -190,7 +192,7 @@ namespace mini{
                     return;
                 }
                 else{
-                    for(int i = sz, curr = tail; i > (sz/2) && i != (pos+1); --i, curr=curr->prev);
+                    for(i = sz, curr = tail; i > (sz/2) && i != (pos+1); --i, curr=curr->prev);
                     curr1 = curr->prev;
                     curr->prev = curr1->prev;
                     curr1->prev->next = curr;
